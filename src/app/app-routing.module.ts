@@ -19,6 +19,12 @@ const routes: Routes = [
     path: "login",
     component: LoginComponent,
     data: { title : 'Login Form' }
+  },
+
+  {
+    path: "**",
+    component: DashboardComponent,
+    data: { title : 'No path' }
   }
 ];
 
