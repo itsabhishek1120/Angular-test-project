@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
 
+  isEmployee : boolean = true;
+
   constructor() { }
 
   ngOnInit(): void {
