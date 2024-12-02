@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './job-market-components/dashboard/dashboard.component';
 import { RegistrationComponent } from './job-market-components/registration/registration.component';
 import { LoginComponent } from './job-market-components/login/login.component';
+import { JobsComponent } from './job-market-components/jobs/jobs.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
   {
     path: "login",
     component: LoginComponent,
+    data: { title : 'Login Form' }
+  },
+  {
+    path: "jobs",
+    component: JobsComponent,
     data: { title : 'Login Form' }
   },
 
