@@ -17,6 +17,7 @@ export class JobsComponent implements OnInit {
       skills: ['React', 'Node.js', 'MongoDB', 'Express.js'],
       tags: ['Full-time', 'Remote'],
       description: "We are looking for a highly skilled software engineer with experience in developing scalable applications. Strong knowledge of React and Node.js is essential, along with experience in database management.",
+      postedDate: 1,
     },
     {
       title: 'Backend Developer',
@@ -26,7 +27,8 @@ export class JobsComponent implements OnInit {
       location: 'Chennai, Bengaluru',
       skills: ['Node.js', 'PostgreSQL', 'Docker'],
       tags: ['Full-time', 'On-site'],
-      description: "testtttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+      description: "Hi, I'm test descriptionnnn !!!",
+      postedDate: 2,
     },
     {
       title: 'Frontend Developer',
@@ -36,7 +38,8 @@ export class JobsComponent implements OnInit {
       location: 'Delhi, Gurgaon',
       skills: ['Angular', 'Tailwind CSS', 'TypeScript'],
       tags: ['Part-time', 'Hybrid'],
-      description: "testtttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+      description: "Yep, I'm test descriptionnnn !!!",
+      postedDate: 3,
     },
     {
       title: 'Full Stack Developer',
@@ -46,7 +49,8 @@ export class JobsComponent implements OnInit {
       location: 'Mumbai, Remote',
       skills: ['React', 'Node.js', 'AWS'],
       tags: ['Full-time', 'Remote'],
-      description: "testtttttttttttttttttttttttttttttttttttttttttttttttttttttttt",
+      description: "Heyy there!! I'm test descriptionnnn !!!",
+      postedDate: 4,
     },
   ];
 
