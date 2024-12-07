@@ -7,6 +7,7 @@ import { DashboardComponent } from './job-market-components/dashboard/dashboard.
 import { RegistrationComponent } from './job-market-components/registration/registration.component';
 import { LoginComponent } from './job-market-components/login/login.component';
 import { JobsComponent } from './job-market-components/jobs/jobs.component';
+import { JobDetailsComponent } from './job-market-components/job-details/job-details.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { JobsComponent } from './job-market-components/jobs/jobs.component';
     DashboardComponent,
     RegistrationComponent,
     LoginComponent,
-    JobsComponent
+    JobsComponent,
+    JobDetailsComponent
   ],
   imports: [
     BrowserModule,

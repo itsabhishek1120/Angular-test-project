@@ -4,6 +4,7 @@ import { DashboardComponent } from './job-market-components/dashboard/dashboard.
 import { RegistrationComponent } from './job-market-components/registration/registration.component';
 import { LoginComponent } from './job-market-components/login/login.component';
 import { JobsComponent } from './job-market-components/jobs/jobs.component';
+import { JobDetailsComponent } from "./job-market-components/job-details/job-details.component";
 
 const routes: Routes = [
   {
@@ -26,12 +27,15 @@ const routes: Routes = [
     component: JobsComponent,
     data: { title : 'Login Form' }
   },
-
+  {
+    path: 'job-detail/:id',
+    component: JobDetailsComponent
+  },
   {
     path: "**",
     component: DashboardComponent,
     data: { title : 'No path' }
-  }
+  },
 ];
 
 @NgModule({

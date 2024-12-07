@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-jobs',
@@ -7,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JobsComponent implements OnInit {
 
+  constructor(private router: Router) { }
+
   jobs = [
     {
+      id : '1',
       title: 'Software Engineer',
       company: 'Acme Corp',
       experience: '3-8 Yrs',
@@ -20,6 +24,7 @@ export class JobsComponent implements OnInit {
       postedDate: 1,
     },
     {
+      id : '2',
       title: 'Backend Developer',
       company: 'Tech Solutions',
       experience: '2-5 Yrs',
@@ -31,6 +36,7 @@ export class JobsComponent implements OnInit {
       postedDate: 2,
     },
     {
+      id : '3',
       title: 'Frontend Developer',
       company: 'Innovatech',
       experience: '1-3 Yrs',
@@ -42,6 +48,7 @@ export class JobsComponent implements OnInit {
       postedDate: 3,
     },
     {
+      id : '4',
       title: 'Full Stack Developer',
       company: 'Startup Inc.',
       experience: '4-6 Yrs',
@@ -54,7 +61,11 @@ export class JobsComponent implements OnInit {
     },
   ];
 
-  constructor() { }
+  openJobDetail(jobId: any): void {
+    console.log('Job ID:', jobId);
+    this.router.navigate(['/job-detail', jobId]);
+  }
+
 
   ngOnInit(): void {
   }
