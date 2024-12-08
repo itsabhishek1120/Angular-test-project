@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { GlobalServices } from "./../../global-services";
 
 @Component({
   selector: 'app-job-details',
@@ -8,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class JobDetailsComponent implements OnInit {
 
-  constructor(private activatedRoute: ActivatedRoute) { }
+  constructor(private activatedRoute: ActivatedRoute, public global: GlobalServices) { }
 
   jobId: any;
 

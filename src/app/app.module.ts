@@ -8,6 +8,7 @@ import { RegistrationComponent } from './job-market-components/registration/regi
 import { LoginComponent } from './job-market-components/login/login.component';
 import { JobsComponent } from './job-market-components/jobs/jobs.component';
 import { JobDetailsComponent } from './job-market-components/job-details/job-details.component';
+import { ServicesComponent } from './job-market-components/services/services.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { JobDetailsComponent } from './job-market-components/job-details/job-det
     RegistrationComponent,
     LoginComponent,
     JobsComponent,
-    JobDetailsComponent
+    JobDetailsComponent,
+    ServicesComponent
   ],
   imports: [
     BrowserModule,
