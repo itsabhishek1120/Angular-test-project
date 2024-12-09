@@ -6,6 +6,7 @@ import { LoginComponent } from './job-market-components/login/login.component';
 import { JobsComponent } from './job-market-components/jobs/jobs.component';
 import { JobDetailsComponent } from "./job-market-components/job-details/job-details.component";
 import { ServicesComponent } from './job-market-components/services/services.component';
+import { CompaniesComponent } from './job-market-components/companies/companies.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
   {
     path: 'services',
     component: ServicesComponent
+  },
+  {
+    path: 'companies',
+    component: CompaniesComponent
   },
   {
     path: "**",

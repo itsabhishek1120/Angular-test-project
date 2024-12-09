@@ -1,0 +1,163 @@
+<!-- ******************************* Navbar Section ******************************* -->
+<nav class="bg-gray-800 text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Left Section: Logo -->
+      <div class="flex items-center">
+        <img src="assets/logoo.png" alt="Company Logo" class="h-8 w-8 mr-2" />
+        <a routerLink="/" class="text-lg font-bold">Predict Job Market</a>
+      </div>
+
+      <!-- Center Section: Navigation Links -->
+      <div class="hidden md:flex space-x-4">
+        <a routerLink="/jobs" class="hover:bg-gray-700 px-3 py-2 rounded-md">Jobs</a>
+        <a routerLink="/services" class="hover:bg-gray-700 px-3 py-2 rounded-md">Services</a>
+        <a routerLink="/companies" class="hover:bg-gray-700 px-3 py-2 rounded-md">Companies</a>
+      </div>
+
+      <!-- Right Section: Buttons -->
+      <div class="hidden md:flex space-x-2">
+        <button routerLink="/login" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">Login</button>
+        <button routerLink="/registration" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-md">Register</button>
+      </div>
+
+      <!-- Mobile Menu Toggle Button -->
+      <div class="-mr-2 flex md:hidden">
+        <button (click)="global.toggleMenu()" class="text-gray-400 hover:text-white focus:outline-none focus:text-white">
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div *ngIf="global.menuOpen" class="md:hidden">
+    <a routerLink="/jobs" class="block px-4 py-2 text-sm hover:bg-gray-700">Jobs</a>
+    <a routerLink="/services" class="block px-4 py-2 text-sm hover:bg-gray-700">Services</a>
+    <a routerLink="/companies" class="block px-4 py-2 text-sm hover:bg-gray-700">Companies</a>
+    <button routerLink="/login" class="block bg-gray-700 hover:bg-gray-600 px-4 py-2 text-sm rounded-md">Login</button>
+    <button routerLink="/registration"
+      class="block bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm rounded-md">Register</button>
+  </div>
+</nav>
+
+
+<div class="min-h-screen bg-gray-100">
+  <!-- Search Section -->
+  <section class="bg-gray-200 pt-4 pb-10">
+    <!-- ******************************* Back button ******************************* -->
+    <div class="relative mb-8">
+      <a routerLink="/dashboard"
+        class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 inline-flex items-center absolute top-0 left-0 ml-4">
+        <svg class="w-5 h-5 mr-2 pointer-events-none" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+        </svg>
+        <span>Back</span>
+      </a>
+    </div>
+
+    <div class="max-w-7xl mx-auto text-center px-4">
+      <h1 class="text-3xl font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white mb-4">Find Great Places to Work</h1>
+      <h2 class="text-lg text-gray-600 mb-6">
+        Explore top companies hiring now.
+      </h2>
+      <form
+        action="/companies/search"
+        method="get"
+        autocomplete="off"
+        class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+      >
+        <!-- Input Field -->
+        <div class="relative w-full sm:w-auto">
+          <label for="company-search" class="block text-sm font-medium text-gray-700 sr-only">
+            Company name or job title
+          </label>
+          <input
+            type="text"
+            id="company-search"
+            name="q"
+            placeholder="Company name or job title"
+            class="w-full sm:w-96 border border-gray-300 rounded-md shadow-sm py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          />
+          <!-- Search Icon -->
+          <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              class="w-5 h-5 text-gray-400"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M14.4959 15.9106c-1.2016.9066-2.6973 1.4441-4.3185 1.4441C6.2134 17.3547 3 14.1413 3 10.1774 3 6.2134 6.2134 3 10.1774 3c3.9639 0 7.1773 3.2134 7.1773 7.1774 0 1.6215-.5377 3.1174-1.4445 4.3191l4.7969 4.7969c.3906.3905.3906 1.0237 0 1.4142-.3905.3906-1.0236.3906-1.4142 0l-4.797-4.797zm.8588-5.7332c0 2.8593-2.318 5.1773-5.1773 5.1773C7.318 15.3547 5 13.0367 5 10.1774 5 7.318 7.318 5 10.1774 5c2.8593 0 5.1773 2.318 5.1773 5.1774z"
+                clip-rule="evenodd"
+              ></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          Find Companies
+        </button>
+      </form>
+      <div class="mt-6">
+        <a
+          href="/career/salaries"
+          class="text-blue-600 hover:underline"
+        >
+          Do you want to search for salaries?
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Companies Section -->
+  <section class="py-12 px-6">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-8">Companies</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Dynamic Company Cards -->
+        <div
+          *ngFor="let company of companies"
+          class="bg-white shadow-md rounded-lg overflow-hidden"
+        >
+          <div class="p-6">
+            <!-- Company Logo -->
+            <div class="mb-4 flex justify-center">
+              <img
+                [src]="company.logo"
+                [alt]="company.name + ' Logo'"
+                class="h-16 w-16 object-cover rounded-full"
+              />
+            </div>
+            <!-- Company Details -->
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">
+              {{ company.name }}
+            </h3>
+            <p class="text-sm text-gray-600 mb-2">Industry: {{ company.industry }}</p>
+            <p class="text-sm text-gray-600 mb-2">Open Positions: {{ company.openPositions }}</p>
+            <p class="text-sm text-gray-600 mb-4">Location: {{ company.location }}</p>
+            <!-- Action Button -->
+            <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
+              View Jobs
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="bg-blue-50 py-10">
+    <div class="text-center">
+      <button class="bg-blue-600 text-white py-3 px-6 rounded-lg text-lg hover:bg-blue-700">
+        Start Exploring
+      </button>
+    </div>
+  </section>
+</div>
