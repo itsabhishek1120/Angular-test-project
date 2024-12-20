@@ -26,10 +26,25 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
       console.log('Form Data:', formData);
-      // Implement your logic here, e.g., call an API to authenticate the user
-    } else {
+      let params = {
+        email: formData.email,
+        password: formData.password
+      }
 
-      console.log('Form is invalid.');
+      this.global.get('/get-user',params).then(resp =>{
+        console.log("Data aa gya bc>>>",resp.data[0]);
+        if (!resp.data.length) {
+          this.global.failAlert(resp.message);
+          return;
+        } else {
+          this.global.successAlert(JSON.stringify(resp.data[0]));
+        }
+      }).catch((error) => {
+        console.error('API Error:', error);
+      });
+
+    } else {
+      this.global.failAlert("Form is invalid.");
     }
   }
 
