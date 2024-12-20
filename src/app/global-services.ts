@@ -7,6 +7,8 @@ export class GlobalServices {
 
   menuOpen = false;
 
+  apiUrl = 'http://localhost:5000/api';
+
   toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
