@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalServices } from "./../../global-services";
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 
 @Component({
@@ -31,7 +31,8 @@ export class RegistrationComponent implements OnInit {
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required],
       terms: [false, Validators.requiredTrue]
-    });
+    },
+    { validators: passwordMatchValidator });
 
     // Initialize the employer form with validation
     this.employerForm = this.fb.group({
@@ -42,7 +43,8 @@ export class RegistrationComponent implements OnInit {
       employer_password: ['', Validators.required],
       employer_confirmPassword: ['', Validators.required],
       employer_terms: [false, Validators.requiredTrue]
-    });
+    },
+    { validators: passwordMatchValidator });
   }
 
   ngOnInit(): void {
@@ -106,3 +108,12 @@ export class RegistrationComponent implements OnInit {
   }
 
 }
+
+export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
+  const password = control.get('password')?.value || control.get('employer_password')?.value;
+  const confirmPassword = control.get('confirmPassword')?.value || control.get('employer_confirmPassword')?.value;
+  if (!password || !confirmPassword) {
+    return null;
+  }
+  return password === confirmPassword ? null : { passwordMismatch: true };
+};
