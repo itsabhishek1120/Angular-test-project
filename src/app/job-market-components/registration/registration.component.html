@@ -21,7 +21,7 @@
               <div class="btn-group" role="group" aria-label="Basic example">
                 <button
                   type="button"
-                  (click)="isEmployee = true"
+                  (click)="toggleForm(true)"
                   [ngClass]="!isEmployee ? 'text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800' : 'text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'"
                 >
                   Looking for a Job
@@ -29,65 +29,77 @@
 
                 <button
                   type="button"
-                  (click)="isEmployee = false"
+                  (click)="toggleForm(false)"
                   [ngClass]="isEmployee ? 'text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800' : 'text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2'"
                 >
                   Register as Employer
                 </button>
               </div>
               <div *ngIf="isEmployee">
-                <form class="space-y-4 md:space-y-6" action="#">
+                <form [formGroup]="employeeForm" (ngSubmit)="createEmployee()" class="space-y-4 md:space-y-6" action="#">
                   <!-- Name Field -->
                   <div>
                       <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Name</label>
-                      <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" required="">
+                      <input type="text" formControlName="email" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John Doe" required="">
+                        <span *ngIf="(employeeForm.controls['name'].touched || employeeSubmitted) && employeeForm.controls['name'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Name is required</span>
                   </div>
                   <!-- Contact Field -->
                   <div>
                       <label for="contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Contact Number</label>
-                      <input type="tel" name="contact" id="contact" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+91" required="">
+                      <input type="tel" formControlName="contact" id="contact" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+91" required="">
+                        <span *ngIf="(employeeForm.controls['contact'].touched || employeeSubmitted) && employeeForm.controls['contact'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Contact is required</span>
                   </div>
                   <!-- City Field -->
                   <div>
                       <label for="city" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                      <input type="text" name="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="City" required="">
+                      <input type="text" formControlName="city" id="city" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="City" required="">
+                        <span *ngIf="(employeeForm.controls['city'].touched || employeeSubmitted) && employeeForm.controls['city'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">City is required</span>
                   </div>
                   <!-- State Field -->
                   <div>
                       <label for="state" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">State</label>
-                      <input type="text" name="state" id="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="State" required="">
+                      <input type="text" formControlName="state" id="state" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="State" required="">
+                        <span *ngIf="(employeeForm.controls['state'].touched || employeeSubmitted) && employeeForm.controls['state'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">State is required</span>
                   </div>
                   <!-- Pincode Field -->
                   <div>
                       <label for="pincode" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pincode</label>
-                      <input type="text" name="pincode" id="pincode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pincode" required="">
+                      <input type="text" formControlName="pincode" id="pincode" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Pincode" required="">
+                        <span *ngIf="(employeeForm.controls['pincode'].touched || employeeSubmitted) && employeeForm.controls['pincode'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Pincode is required</span>
                   </div>
                   <!-- Address Field -->
                   <div>
                       <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Address</label>
-                      <textarea name="address" id="address" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your full address" required=""></textarea>
+                      <textarea formControlName="address" id="address" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your full address" required=""></textarea>
+                        <span *ngIf="(employeeForm.controls['address'].touched || employeeSubmitted) && employeeForm.controls['address'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Address is required</span>
                   </div>
 
                   <div>
                       <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                      <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                      <input type="email" formControlName="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required="">
+                        <span *ngIf="(employeeForm.controls['email'].touched || employeeSubmitted) && employeeForm.controls['email'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Email is required</span>
+                        <span *ngIf="(employeeForm.controls['email'].touched || employeeSubmitted) && employeeForm.controls['email'].hasError('email')" class="text-sm text-red-500 mt-1 ml-2">Enter a valid email</span>
                   </div>
                   <div>
                       <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                      <input type="password" formControlName="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        <span *ngIf="(employeeForm.controls['password'].touched || employeeSubmitted) && employeeForm.controls['password'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Password is required</span>
                   </div>
                   <div>
                       <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm password</label>
-                      <input type="confirm-password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                      <input type="confirm-password" formControlName="confirmPassword" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
+                        <span *ngIf="(employeeForm.controls['confirmPassword'].touched || employeeSubmitted) && employeeForm.controls['confirmPassword'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Confirmation password is required</span>
                   </div>
                   <div class="flex items-start">
                       <div class="flex items-center h-5">
-                        <input id="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
+                        <input id="terms" formControlName="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
                       </div>
                       <div class="ml-3 text-sm">
                         <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a class="font-medium text-primary-600 hover:underline dark:text-primary-500" href="#">Terms and Conditions</a></label>
                       </div>
-                  </div>
+                    </div>
+                    <span *ngIf="(employeeForm.controls['terms'].touched || employeeSubmitted) && employeeForm.controls['terms'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Accept Terms and Conditions</span>
+
                   <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Create an account
                   </button>
@@ -98,43 +110,51 @@
               </div>
 
               <div *ngIf="!isEmployee">
-                <form class="space-y-4 md:space-y-6" action="#">
+                <form [formGroup]="employerForm" (ngSubmit)="createEmployer()" class="space-y-4 md:space-y-6" action="#">
                   <div>
                     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Name</label>
-                    <input type="text" name="name" id="employer_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XYZ Corporation" required="">
+                    <input type="text" formControlName="employer_name" id="employer_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="XYZ Corporation" required="">
+                      <span *ngIf="(employerForm.controls['employer_name'].touched || employerSubmitted) && employerForm.controls['employer_name'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Company Name is required</span>
                   </div>
                   <div>
                     <label for="contact" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Contact Number</label>
-                    <input type="tel" name="contact" id="employer_contact" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+91" required="">
+                    <input type="tel" formControlName="employer_contact" id="employer_contact" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="+91" required="">
+                      <span *ngIf="(employerForm.controls['employer_contact'].touched || employerSubmitted) && employerForm.controls['employer_contact'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Contact is required</span>
                   </div>
                   <div>
                     <label for="address" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company Address</label>
-                    <textarea name="address" id="employer_address" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Company full address" required=""></textarea>
+                    <textarea formControlName="employer_address" id="employer_address" rows="4" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Company full address" required=""></textarea>
+                      <span *ngIf="(employerForm.controls['employer_address'].touched || employerSubmitted) && employerForm.controls['employer_address'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Address is required</span>
                   </div>
                   <div>
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company email</label>
-                    <input type="email" name="email" id="employer_email"
+                    <input type="email" formControlName="employer_email" id="employer_email"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       placeholder="name@company.com" required="">
+                      <span *ngIf="(employerForm.controls['employer_email'].touched || employerSubmitted) && employerForm.controls['employer_email'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Email is required</span>
+                      <span *ngIf="employerForm.controls['employer_email'].hasError('email') && (employerForm.controls['employer_email'].touched || employerSubmitted)" class="text-sm text-red-500 mt-1 ml-2">Invalid email format</span>
                   </div>
                   <div>
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                    <input type="password" name="password" id="employer_password" placeholder="••••••••"
+                    <input type="password" formControlName="employer_password" id="employer_password" placeholder="••••••••"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required="">
+                      <span *ngIf="(employerForm.controls['employer_password'].touched || employerSubmitted) && employerForm.controls['employer_password'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Password is required</span>
                   </div>
                   <div>
                     <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Confirm
                       password</label>
-                    <input type="confirm-password" name="confirm-password" id="employer_confirm-password" placeholder="••••••••"
+                    <input type="confirm-password" formControlName="employer_confirmPassword" id="employer_confirm-password" placeholder="••••••••"
                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                       required="">
+                      <span *ngIf="(employerForm.controls['employer_confirmPassword'].touched || employerSubmitted) && employerForm.controls['employer_confirmPassword'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Confirmation password is required</span>
+                      <span *ngIf="employerForm.hasError('passwordMismatch') && employerSubmitted" class="text-sm text-red-500 mt-1 ml-2">Passwords do not match</span>
                   </div>
                   <div class="flex items-start">
                     <div class="flex items-center h-5">
-                      <input id="employer_terms" aria-describedby="terms" type="checkbox"
+                      <input id="employer_terms" formControlName="employer_terms" aria-describedby="terms" type="checkbox"
                         class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
-                        required="">
+                        required="true">
                     </div>
                     <div class="ml-3 text-sm">
                       <label for="terms" class="font-light text-gray-500 dark:text-gray-300">I accept the <a
@@ -142,6 +162,8 @@
                           Conditions</a></label>
                     </div>
                   </div>
+                  <span *ngIf="(employerForm.controls['employer_terms'].touched || employerSubmitted) && employerForm.controls['employer_terms'].hasError('required')" class="text-sm text-red-500 mt-1 ml-2">Accept Terms and Conditions</span>
+
                   <button type="submit"
                     class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Create an account
