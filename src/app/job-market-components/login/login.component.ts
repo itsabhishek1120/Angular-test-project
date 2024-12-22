@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalServices } from "./../../global-services";
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(public global: GlobalServices, private fb: FormBuilder) {
+  constructor(public global: GlobalServices, private fb: FormBuilder,private router: Router) {
     // Initialize the reactive form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -26,25 +27,27 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const formData = this.loginForm.value;
       console.log('Form Data:', formData);
-      let params = {
+      let body = {
         email: formData.email,
         password: formData.password
       }
 
-      this.global.get('/get-user',params).then(resp =>{
-        console.log("Data aa gya bc>>>",resp.data[0]);
-        if (!resp.data.length) {
+      this.global.post('/login',body).then(resp =>{
+        console.log("Data aa gya bc>>>",resp);
+        if (!resp?.success) {
           this.global.failAlert(resp.message);
           return;
         } else {
-          this.global.successAlert(JSON.stringify(resp.data[0]));
+          this.global.successAlert("LogIn Successful");
+          this.global.isLoggedIn = true;
+          this.router.navigate(['/dashboard']);
         }
       }).catch((error) => {
         console.error('API Error:', error);
       });
 
     } else {
-      this.global.failAlert("Form is invalid.");
+      console.log("Form is invalid.");
     }
   }
 

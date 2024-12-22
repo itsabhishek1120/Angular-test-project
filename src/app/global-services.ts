@@ -13,6 +13,7 @@ export class GlobalServices {
   ){}
 
   // GLOBAL VARIABLES
+  public isLoggedIn = false;
   public menuOpen = false;
   public API_URL = 'http://localhost:5000/api';
 
@@ -29,9 +30,9 @@ export class GlobalServices {
     this.menuOpen = !this.menuOpen;
   }
 
-  public successAlert(message = '') {
+  public successAlert(title = 'Success', message = ' ') {
     Swal.fire({
-      title: 'Success',
+      title: title,
       text: message,
       icon: 'success',
       // position: 'top-end',
@@ -54,7 +55,7 @@ export class GlobalServices {
   public get = async (endpoint: any, params = {}, headers = {}) => {
     console.log("Params :",params);
     try {
-      const response = await this.apiClient.get(endpoint, { headers, params });
+      const response = await this.apiClient.get(endpoint, { headers, params, withCredentials: true });
       return response.data;
     } catch (error) {
       console.error('GET Request Error:', error);
@@ -64,7 +65,11 @@ export class GlobalServices {
 
   post = async (endpoint: any, body: any, headers = {}) => {
     try {
-      const response = await this.apiClient.post(endpoint, body, { headers });
+      const response = await this.apiClient.post(endpoint, body, {
+        headers,
+        withCredentials: true, // Include cookies in the request
+      });
+      console.log("response>>", response.data);
       return response.data;
     } catch (error) {
       console.error('POST Request Error:', error);
