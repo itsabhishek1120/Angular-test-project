@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GlobalServices } from "./../../global-services";
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 
 
@@ -18,7 +19,7 @@ export class RegistrationComponent implements OnInit {
   employerSubmitted = false;
 
 
-  constructor(public global: GlobalServices, private fb: FormBuilder) {
+  constructor(public global: GlobalServices, private fb: FormBuilder, private router: Router) {
 
     this.employeeForm = this.fb.group({
       name: ['', Validators.required],
@@ -82,11 +83,21 @@ export class RegistrationComponent implements OnInit {
     const employeeData = this.employeeForm.value;
     console.log('Employee Form Data:', employeeData);
 
-    // Handle the data (e.g., API call)
-    // Example:
-    // this.authService.registerEmployee(employeeData).subscribe(response => {
-    //   console.log(response);
-    // });
+    this.global.post('/signup-user', employeeData).then((resp: any) => {
+      console.log('Signup user response:', resp);
+      if (!resp?.success) {
+         console.log('Error:',resp.message);
+        this.global.failAlert(resp.message);
+        return;
+      } else {
+        this.global.successAlert("SignUp Successful");
+        this.global.isLoggedIn = true;
+        this.router.navigate(['/dashboard']);
+      }
+    }).catch((error) => {
+      console.error('API Error:', error);
+    });
+
   }
 
   createEmployer(): void {
