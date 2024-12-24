@@ -111,11 +111,21 @@ export class RegistrationComponent implements OnInit {
     const employerData = this.employerForm.value;
     console.log('Employer Form Data:', employerData);
 
-    // Handle the data (e.g., API call)
-    // Example:
-    // this.authService.registerEmployer(employerData).subscribe(response => {
-    //   console.log(response);
-    // });
+    this.global.post('/signup-employer', employerData).then((resp: any) => {
+      console.log('Signup Employer response:', resp);
+      if (!resp?.success) {
+         console.log('Error:',resp.message);
+        this.global.failAlert(resp.message);
+        return;
+      } else {
+        this.global.successAlert("SignUp Successful");
+        this.global.isLoggedIn = true;
+        this.global.isEmployer = true;
+        this.router.navigate(['/dashboard']);
+      }
+    }).catch((error) => {
+      console.error('API Error:', error);
+    });
   }
 
 }

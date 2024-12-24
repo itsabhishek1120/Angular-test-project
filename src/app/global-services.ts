@@ -14,6 +14,7 @@ export class GlobalServices {
 
   // GLOBAL VARIABLES
   public isLoggedIn = false;
+  public isEmployer = false;
   public menuOpen = false;
   public API_URL = 'http://localhost:5000/api';
 
