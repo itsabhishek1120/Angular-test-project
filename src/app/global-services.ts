@@ -16,7 +16,7 @@ export class GlobalServices {
   public loginDetails = {
     isLoggedIn : false,
     isEmployer : true,
-    userEmail : 'test@mail.com'
+    userEmail : 'test@example.com'
   };
   public menuOpen = false;
   public API_URL = 'http://localhost:5000/api';

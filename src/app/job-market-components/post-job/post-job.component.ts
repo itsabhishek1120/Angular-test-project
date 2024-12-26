@@ -230,7 +230,7 @@ export class PostJobComponent implements OnInit {
         return;
       } else {
         this.global.successAlert("Job Post Created Successfully");
-        // this.router.navigate(['/dashboard']);
+        this.router.navigate(['/jobs']);
       }
     }).catch((error) => {
       console.error('API Error:', error);
