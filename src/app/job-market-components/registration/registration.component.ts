@@ -91,7 +91,8 @@ export class RegistrationComponent implements OnInit {
         return;
       } else {
         this.global.successAlert("SignUp Successful");
-        this.global.isLoggedIn = true;
+        this.global.loginDetails.isLoggedIn = true;
+        this.global.loginDetails.userEmail = employeeData.email;
         this.router.navigate(['/dashboard']);
       }
     }).catch((error) => {
@@ -119,8 +120,9 @@ export class RegistrationComponent implements OnInit {
         return;
       } else {
         this.global.successAlert("SignUp Successful");
-        this.global.isLoggedIn = true;
-        this.global.isEmployer = true;
+        this.global.loginDetails.isLoggedIn = true;
+        this.global.loginDetails.isEmployer = true;
+        this.global.loginDetails.userEmail = employerData.employer_email;
         this.router.navigate(['/dashboard']);
       }
     }).catch((error) => {

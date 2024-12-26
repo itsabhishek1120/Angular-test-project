@@ -11,6 +11,7 @@ import { JobsComponent } from './job-market-components/jobs/jobs.component';
 import { JobDetailsComponent } from './job-market-components/job-details/job-details.component';
 import { ServicesComponent } from './job-market-components/services/services.component';
 import { CompaniesComponent } from './job-market-components/companies/companies.component';
+import { PostJobComponent } from './job-market-components/post-job/post-job.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { CompaniesComponent } from './job-market-components/companies/companies.
     JobsComponent,
     JobDetailsComponent,
     ServicesComponent,
-    CompaniesComponent
+    CompaniesComponent,
+    PostJobComponent
   ],
   imports: [
     BrowserModule,

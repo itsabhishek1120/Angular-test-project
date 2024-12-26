@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { GlobalServices } from "./../../global-services";
 
 @Component({
   selector: 'app-jobs',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class JobsComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public global: GlobalServices) { }
 
   jobs = [
     {

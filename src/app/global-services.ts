@@ -13,8 +13,11 @@ export class GlobalServices {
   ){}
 
   // GLOBAL VARIABLES
-  public isLoggedIn = false;
-  public isEmployer = false;
+  public loginDetails = {
+    isLoggedIn : false,
+    isEmployer : true,
+    userEmail : 'test@mail.com'
+  };
   public menuOpen = false;
   public API_URL = 'http://localhost:5000/api';
 

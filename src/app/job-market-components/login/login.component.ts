@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
           return;
         } else {
           this.global.successAlert("LogIn Successful");
-          this.global.isLoggedIn = true;
+          this.global.loginDetails.isLoggedIn = true;
           this.router.navigate(['/dashboard']);
         }
       }).catch((error) => {
