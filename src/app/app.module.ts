@@ -12,6 +12,8 @@ import { JobDetailsComponent } from './job-market-components/job-details/job-det
 import { ServicesComponent } from './job-market-components/services/services.component';
 import { CompaniesComponent } from './job-market-components/companies/companies.component';
 import { PostJobComponent } from './job-market-components/post-job/post-job.component';
+import { NavbarComponent } from './job-market-components/navbar/navbar.component';
+import { FooterComponent } from './job-market-components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { PostJobComponent } from './job-market-components/post-job/post-job.comp
     JobDetailsComponent,
     ServicesComponent,
     CompaniesComponent,
-    PostJobComponent
+    PostJobComponent,
+    NavbarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
