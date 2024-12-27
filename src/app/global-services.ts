@@ -15,8 +15,8 @@ export class GlobalServices {
   // GLOBAL VARIABLES
   public loginDetails = {
     isLoggedIn : false,
-    isEmployer : true,
-    userEmail : 'test@example.com'
+    isEmployer : false,
+    userEmail : ''
   };
   public menuOpen = false;
   public API_URL = 'http://localhost:5000/api';

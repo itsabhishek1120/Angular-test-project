@@ -1,4 +1,6 @@
 <!-- ******************************* Navbar ******************************* -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
 
 <nav class="bg-gray-800 text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,10 +18,40 @@
         <a routerLink="/companies" class="hover:bg-gray-700 px-3 py-2 rounded-md">Companies</a>
       </div>
 
-      <!-- Right Section: Buttons -->
+      <!-- Right Section -->
       <div class="hidden md:flex space-x-2">
-        <button routerLink="/login" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">Login</button>
-        <button routerLink="/registration" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-md">Register</button>
+        <!-- Conditional Rendering Based on Login Status -->
+        <ng-container *ngIf="this.global.loginDetails.isLoggedIn; else guestLinks">
+          <!-- Profile Dropdown -->
+          <div id="dropdownContainer" class="relative font-[sans-serif] w-max mx-auto">
+            <button type="button" id="dropdownToggle"
+              class="px-4 py-2 flex items-center rounded-full text-[#333] text-sm border border-gray-300 bg-white outline-none hover:bg-gray-100"
+              (click)="toggleDropdown()">
+              <img src="https://readymadeui.com/profile_6.webp" class="w-7 h-7 mr-3 rounded-full shrink-0" alt="Profile Picture">
+              {{ this.global.loginDetails.userEmail || 'User' }}
+              <i class="fas fa-chevron-down text-gray-400 ml-3"></i>
+            </button>
+
+            <ul id="dropdownMenu" class="absolute shadow-lg bg-white py-2 z-[1000] min-w-full w-max rounded-lg max-h-96 overflow-auto hidden">
+              <li class="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer">
+                <i class="bx bx-user mr-3"></i>
+                <a routerLink="/profile">View Profile</a>
+              </li>
+              <li class="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer">
+                <i class="bx bx-grid-alt mr-3"></i>
+                <a routerLink="/dashboard">Dashboard</a>
+              </li>
+              <li class="py-2.5 px-5 flex items-center hover:bg-gray-100 text-[#333] text-sm cursor-pointer">
+                <i class="bx bx-log-out mr-3"></i>
+                <button (click)="logout()">Logout</button>
+              </li>
+            </ul>
+          </div>
+        </ng-container>
+        <ng-template #guestLinks>
+          <button routerLink="/login" class="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-md">Login</button>
+          <button routerLink="/registration" class="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-md">Register</button>
+        </ng-template>
       </div>
 
       <!-- Mobile Menu Toggle Button -->
@@ -38,8 +70,15 @@
     <a routerLink="/jobs" class="block px-4 py-2 text-sm hover:bg-gray-700">Jobs</a>
     <a routerLink="/services" class="block px-4 py-2 text-sm hover:bg-gray-700">Services</a>
     <a routerLink="/companies" class="block px-4 py-2 text-sm hover:bg-gray-700">Companies</a>
-    <button routerLink="/login" class="block bg-gray-700 hover:bg-gray-600 px-4 py-2 text-sm rounded-md">Login</button>
-    <button routerLink="/registration"
-      class="block bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm rounded-md">Register</button>
+    <ng-container *ngIf="this.global.loginDetails.isLoggedIn; else guestMobileLinks">
+      <a routerLink="/profile" class="block px-4 py-2 text-sm hover:bg-gray-700">My Profile</a>
+      <button (click)="logout()" class="block bg-gray-700 hover:bg-gray-600 px-4 py-2 text-sm rounded-md">Logout</button>
+    </ng-container>
+    <ng-template #guestMobileLinks>
+      <button routerLink="/login" class="block bg-gray-700 hover:bg-gray-600 px-4 py-2 text-sm rounded-md">Login</button>
+      <button routerLink="/registration"
+        class="block bg-blue-600 hover:bg-blue-500 px-4 py-2 text-sm rounded-md">Register</button>
+    </ng-template>
   </div>
 </nav>
+

@@ -40,6 +40,7 @@ export class LoginComponent implements OnInit {
         } else {
           this.global.successAlert("LogIn Successful");
           this.global.loginDetails.isLoggedIn = true;
+          this.global.loginDetails.userEmail = body.email;
           this.router.navigate(['/dashboard']);
         }
       }).catch((error) => {
