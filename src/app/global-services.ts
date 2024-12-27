@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
 import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 
@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
 export class GlobalServices {
 
   constructor(
-    // public http: HttpClient,
+    private router: Router,
   ){}
 
   // GLOBAL VARIABLES
@@ -80,6 +80,30 @@ export class GlobalServices {
       this.failAlert("Error While calling API");
     }
   };
+
+  public logout() {
+    const body = {
+      email: this.loginDetails.userEmail
+    }
+    this.loginDetails.isLoggedIn = false;
+    this.loginDetails.isEmployer = false;
+    this.loginDetails.userEmail = '';
+    this.router.navigate(['/dashboard']);
+
+    this.post('/logout',body).then(resp =>{
+      console.log("Logout Response:",resp);
+      if (!resp?.success) {
+        this.failAlert(resp?.message);
+        return;
+      } else {
+        this.successAlert("User Logged Out");
+      }
+    }).catch((error) => {
+      console.error('API Error:', error);
+    });
+  }
+
+
 }
 
 

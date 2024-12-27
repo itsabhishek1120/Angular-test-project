@@ -44,7 +44,7 @@ export class NavbarComponent implements OnInit {
 
   logout(): void {
     console.log('Logging out...');
-    // Perform actual logout logic here
+    this.global.logout();
   }
 
   ngOnInit(): void {
