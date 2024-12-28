@@ -14,6 +14,7 @@ import { CompaniesComponent } from './job-market-components/companies/companies.
 import { PostJobComponent } from './job-market-components/post-job/post-job.component';
 import { NavbarComponent } from './job-market-components/navbar/navbar.component';
 import { FooterComponent } from './job-market-components/footer/footer.component';
+import { LoaderComponent } from './job-market-components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FooterComponent } from './job-market-components/footer/footer.component
     CompaniesComponent,
     PostJobComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,

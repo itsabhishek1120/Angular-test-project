@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GlobalServices } from "./global-services";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Ang-test-project';
+  constructor(public global: GlobalServices) {}
 }

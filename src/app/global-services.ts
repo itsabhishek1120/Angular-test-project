@@ -19,6 +19,7 @@ export class GlobalServices {
     userEmail : ''
   };
   public menuOpen = false;
+  public isLoading = false;
   public API_URL = 'http://localhost:5000/api';
 
   public apiClient = axios.create({
@@ -57,27 +58,45 @@ export class GlobalServices {
   }
 
   public get = async (endpoint: any, params = {}, headers = {}) => {
+    this.showLoader();
     console.log("Params :",params);
     try {
       const response = await this.apiClient.get(endpoint, { headers, params, withCredentials: true });
+      this.hideLoader();
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error('GET Request Error:', error);
-      this.failAlert("Error While calling API");
+      if(error?.response?.data?.message) {
+        let errMssg = error?.response?.data?.message;
+        this.hideLoader();
+        this.failAlert(errMssg);
+      }else {
+        this.hideLoader();
+        this.failAlert("Error While calling API");
+      }
     }
   };
 
   post = async (endpoint: any, body: any, headers = {}) => {
+    this.showLoader();
     try {
       const response = await this.apiClient.post(endpoint, body, {
         headers,
         withCredentials: true, // Include cookies in the request
       });
       console.log("response>>", response.data);
+      this.hideLoader();
       return response.data;
-    } catch (error) {
+    } catch (error: any) {
       console.error('POST Request Error:', error);
-      this.failAlert("Error While calling API");
+      if(error?.response?.data?.message) {
+        let errMssg = error?.response?.data?.message;
+        this.hideLoader();
+        this.failAlert(errMssg);
+      }else {
+        this.hideLoader();
+        this.failAlert("Error While calling API");
+      }
     }
   };
 
@@ -103,6 +122,13 @@ export class GlobalServices {
     });
   }
 
+  public showLoader() {
+    this.isLoading = true;
+  }
+
+  public hideLoader() {
+    this.isLoading = false;
+  }
 
 }
 
