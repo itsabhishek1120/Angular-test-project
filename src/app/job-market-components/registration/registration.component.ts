@@ -93,6 +93,7 @@ export class RegistrationComponent implements OnInit {
         this.global.successAlert("SignUp Successful");
         this.global.loginDetails.isLoggedIn = true;
         this.global.loginDetails.userEmail = employeeData.email;
+        localStorage.setItem('loginDetails', JSON.stringify(this.global.loginDetails));
         this.router.navigate(['/dashboard']);
       }
     }).catch((error) => {
@@ -123,6 +124,7 @@ export class RegistrationComponent implements OnInit {
         this.global.loginDetails.isLoggedIn = true;
         this.global.loginDetails.isEmployer = true;
         this.global.loginDetails.userEmail = employerData.employer_email;
+        localStorage.setItem('loginDetails', JSON.stringify(this.global.loginDetails));
         this.router.navigate(['/dashboard']);
       }
     }).catch((error) => {

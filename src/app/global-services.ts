@@ -107,6 +107,7 @@ export class GlobalServices {
     this.loginDetails.isLoggedIn = false;
     this.loginDetails.isEmployer = false;
     this.loginDetails.userEmail = '';
+    localStorage.removeItem('loginDetails');
     this.router.navigate(['/dashboard']);
 
     this.post('/logout',body).then(resp =>{
