@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalServices } from './../../global-services';
 
 @Component({
@@ -23,6 +23,10 @@ export class EditProfileComponent implements OnInit {
       instituteName: [''],
       graduationYear: [''],
       skills: [[]],
+      portfolio: ['', Validators.pattern('https?://.+')],
+      linkedin: ['', Validators.pattern('https?://.+')],
+      github: ['', Validators.pattern('https?://.+')],
+      otherProfile: ['', Validators.pattern('https?://.+')],
     });
   }
 
@@ -101,7 +105,12 @@ export class EditProfileComponent implements OnInit {
       highestQualification: '',
       fieldOfStudy: 'Computer Science',
       instituteName: 'Tech University',
-      graduationYear: 2020
+      graduationYear: 2020,
+      skills: ['Node.js', 'Angular', 'React'],
+      portfolio: 'https://your-portfolio-example.com',
+      linkedin: 'https://www.linkedin.com/in/example-profile/',
+      github: 'https://github.com/example-profile',
+      otherProfile: 'https://www.leetcode.com/in/example-profile/',
     };
 
     // Patch form values
@@ -113,8 +122,16 @@ export class EditProfileComponent implements OnInit {
       highestQualification: mockResponse.highestQualification || '',
       fieldOfStudy: mockResponse.fieldOfStudy,
       instituteName: mockResponse.instituteName,
-      graduationYear: mockResponse.graduationYear
+      graduationYear: mockResponse.graduationYear,
+      portfolio: mockResponse.portfolio,
+      linkedin: mockResponse.linkedin,
+      github: mockResponse.github,
+      otherProfile: mockResponse.otherProfile,
     });
+
+    this.selectedSkills = mockResponse.skills.slice();
+    this.editProfileForm.controls['skills'].setValue(this.selectedSkills);
+    this.editProfileForm.get('skills')?.setValue('');
 
     // Set the profile picture URL
     // If profilePicture is null or undefined in the response, fallback to placeholder image

@@ -151,33 +151,86 @@
       <!-- Skills Section -->
       <div class="mt-8 pb-8 border-b">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Skills</h2>
-
         <label for="skills" class="text-sm font-medium text-gray-900 block mb-2">Key Skills</label>
         <div class="relative dropdown" id="skills-dropdown">
-          <div class="flex flex-wrap items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg shadow-sm focus-within:ring-cyan-600 focus-within:border-cyan-600">
+          <div
+            class="flex flex-wrap items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg shadow-sm focus-within:ring-cyan-600 focus-within:border-cyan-600">
             <span *ngFor="let skill of selectedSkills; let i = index"
-                  class="bg-cyan-600 text-white px-2 py-0.5 rounded text-sm flex items-center">
+              class="bg-cyan-600 text-white px-2 py-0.5 rounded text-sm flex items-center">
               {{ skill }}
               <button type="button" (click)="removeSkill(i)" class="ml-1 text-white hover:text-gray-100 focus:outline-none">
                 &times;
               </button>
             </span>
             <input type="text" id="skills" formControlName="skills" (input)="filterSkills()"
-                   (keydown.enter)="addSkill($event)" (focus)="toggleSkillsDropdown()"
-                   class="flex-1 bg-transparent outline-none text-sm p-1" placeholder="React, Node.js, MongoDB, Express.js">
+              (keydown.enter)="addSkill($event)" (focus)="toggleSkillsDropdown()"
+              class="flex-1 bg-transparent outline-none text-sm p-1" placeholder="React, Node.js, MongoDB, Express.js">
           </div>
-          <!-- Skills Dropdown -->
           <ul *ngIf="isSkillsDropdownVisible && filteredSkills.length"
-              class="absolute z-10 mt-1 w-full max-h-32 overflow-y-auto bg-white border border-gray-300 rounded shadow-lg"
-              style="max-height: 200px; bottom: 0;">
+            class="absolute z-10 bg-white border border-gray-300 rounded shadow-lg w-full mt-1 max-h-32 overflow-y-auto">
             <li *ngFor="let option of filteredSkills" (click)="selectSkill(option)"
-                class="px-2 py-1 hover:bg-cyan-100 cursor-pointer">
+              class="px-2 py-1 hover:bg-cyan-100 cursor-pointer">
               {{ option }}
             </li>
           </ul>
         </div>
       </div>
 
+      <!-- Portfolio & Links Section -->
+      <div class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Portfolio & Links</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Portfolio Website/Link -->
+          <div>
+            <label for="portfolio" class="text-sm font-medium text-gray-900 block mb-2">Portfolio Website/Link</label>
+            <input
+              id="portfolio"
+              type="url"
+              formControlName="portfolio"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+              placeholder="https://your-portfolio.com"
+            />
+          </div>
+
+          <!-- LinkedIn Profile -->
+          <div>
+            <label for="linkedin" class="text-sm font-medium text-gray-900 block mb-2">LinkedIn Profile</label>
+            <input
+              id="linkedin"
+              type="url"
+              formControlName="linkedin"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+              placeholder="https://www.linkedin.com/in/your-profile/"
+            />
+          </div>
+
+          <!-- GitHub/StackOverflow Profile -->
+          <div>
+            <label for="github" class="text-sm font-medium text-gray-900 block mb-2">GitHub/StackOverflow Profile</label>
+            <input
+              id="github"
+              type="url"
+              formControlName="github"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+              placeholder="https://github.com/your-profile"
+            />
+          </div>
+
+          <!-- Other Profile -->
+          <div>
+            <label for="otherProfile" class="text-sm font-medium text-gray-900 block mb-2">Other Profile</label>
+            <input
+              id="otherProfile"
+              type="url"
+              formControlName="otherProfile"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+              placeholder="https://www.leetcode.com/in/example-profile/"
+            />
+          </div>
+
+        </div>
+      </div>
 
 
     </form>
