@@ -1,0 +1,154 @@
+<div class="bg-white border border-4 rounded-lg shadow relative m-10">
+  <div class="flex items-start justify-between p-5 border-b rounded-t">
+    <h3 class="text-xl font-semibold">
+      Edit Profile
+    </h3>
+    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" aria-label="Close">
+      <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+      </svg>
+    </button>
+  </div>
+
+  <div class="p-6 space-y-6">
+    <form [formGroup]="editProfileForm" (ngSubmit)="submitProfile()" class="space-y-6">
+
+      <!-- Profile Photo Section -->
+      <div class="grid grid-cols-1 gap-6">
+        <div class="flex items-center space-x-4">
+          <img
+            *ngIf="profilePictureUrl"
+            [src]="profilePictureUrl"
+            alt="Profile Picture"
+            class="w-24 h-24 rounded-full object-cover border border-gray-300"
+          />
+          <div *ngIf="!profilePictureUrl">
+            <div
+            class="w-24 h-24 bg-indigo-100 rounded-full shadow-xl flex items-center justify-center text-indigo-500 border border-gray-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </div>
+          <div class="flex flex-col space-y-2">
+            <label class="text-sm font-medium text-gray-900">Profile Photo</label>
+            <div class="flex items-center">
+              <input type="file" id="file-upload" (change)="uploadProfilePhoto($event)" class="hidden" />
+              <label for="file-upload" class="cursor-pointer flex items-center space-x-2 px-4 py-2 text-white bg-indigo-600 text-sm font-medium rounded-full shadow-md hover:bg-indigo-700 hover:shadow-lg transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5V19a2 2 0 002 2h14a2 2 0 002-2v-2.5M16 10l-4-4m0 0l-4 4m4-4v12"/></svg>
+                <span>Upload Photo</span>
+              </label>
+            </div>
+            <button *ngIf="profilePictureUrl" type="button" (click)="removeProfilePhoto()" class="flex items-center space-x-2 text-red-500 text-sm hover:underline hover:text-red-600 transition duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 6h12M9 6v12m6-12v12M4 6h16l-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6z"/></svg>
+              <span>Remove Photo</span>
+            </button>
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+      <!-- Professional Information Section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-8 border-b">
+        <div>
+          <label for="currentJobTitle" class="text-sm font-medium text-gray-900 block mb-2">Current Job Title</label>
+          <input
+            id="currentJobTitle"
+            type="text"
+            formControlName="currentJobTitle"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+          />
+        </div>
+
+        <div>
+          <label for="experience" class="text-sm font-medium text-gray-900 block mb-2">Experience (in years)</label>
+          <input
+            id="experience"
+            type="number"
+            formControlName="experience"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+            min="0"
+          />
+        </div>
+
+        <div>
+          <label for="currentCompany" class="text-sm font-medium text-gray-900 block mb-2">Current Company</label>
+          <input
+            id="currentCompany"
+            type="text"
+            formControlName="currentCompany"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+          />
+        </div>
+
+        <div>
+          <label for="noticePeriod" class="text-sm font-medium text-gray-900 block mb-2">Notice Period (in days)</label>
+          <input
+            id="noticePeriod"
+            type="number"
+            formControlName="noticePeriod"
+            class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+            min="0"
+          />
+        </div>
+      </div>
+
+      <!-- Education Details Section -->
+      <div class="mt-8">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Education Details</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label for="highestQualification" class="text-sm font-medium text-gray-900 block mb-2">Highest Qualification</label>
+            <select
+              id="highestQualification"
+              formControlName="highestQualification"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5">
+              <option value="" disabled>Select Qualification</option>
+              <option value="bachelor">Bachelor's</option>
+              <option value="master">Master's</option>
+              <option value="diploma">Diploma</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="fieldOfStudy" class="text-sm font-medium text-gray-900 block mb-2">Field of Study</label>
+            <input
+              id="fieldOfStudy"
+              type="text"
+              formControlName="fieldOfStudy"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+            />
+          </div>
+
+          <div>
+            <label for="instituteName" class="text-sm font-medium text-gray-900 block mb-2">Institute/University Name</label>
+            <input
+              id="instituteName"
+              type="text"
+              formControlName="instituteName"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+            />
+          </div>
+
+          <div>
+            <label for="graduationYear" class="text-sm font-medium text-gray-900 block mb-2">Year of Graduation</label>
+            <input
+              id="graduationYear"
+              type="number"
+              formControlName="graduationYear"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+              min="1900"
+              max="2099"
+            />
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+</div>

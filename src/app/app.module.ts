@@ -16,6 +16,7 @@ import { NavbarComponent } from './job-market-components/navbar/navbar.component
 import { FooterComponent } from './job-market-components/footer/footer.component';
 import { LoaderComponent } from './job-market-components/loader/loader.component';
 import { ProfileComponent } from './job-market-components/profile/profile.component';
+import { EditProfileComponent } from './job-market-components/edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ProfileComponent } from './job-market-components/profile/profile.compon
     NavbarComponent,
     FooterComponent,
     LoaderComponent,
-    ProfileComponent
+    ProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,

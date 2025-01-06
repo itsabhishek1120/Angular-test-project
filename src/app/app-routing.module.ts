@@ -9,6 +9,7 @@ import { ServicesComponent } from './job-market-components/services/services.com
 import { CompaniesComponent } from './job-market-components/companies/companies.component';
 import { PostJobComponent } from './job-market-components/post-job/post-job.component';
 import { ProfileComponent } from './job-market-components/profile/profile.component';
+import { EditProfileComponent } from './job-market-components/edit-profile/edit-profile.component';
 
 const routes: Routes = [
   {
@@ -50,6 +51,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfileComponent
   },
   {
     path: "**",
