@@ -97,7 +97,7 @@
       </div>
 
       <!-- Education Details Section -->
-      <div class="mt-8">
+      <div class="mt-8 pb-8 border-b">
         <h2 class="text-xl font-semibold text-gray-900 mb-4">Education Details</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -147,6 +147,37 @@
           </div>
         </div>
       </div>
+
+      <!-- Skills Section -->
+      <div class="mt-8 pb-8 border-b">
+        <h2 class="text-xl font-semibold text-gray-900 mb-4">Skills</h2>
+
+        <label for="skills" class="text-sm font-medium text-gray-900 block mb-2">Key Skills</label>
+        <div class="relative dropdown" id="skills-dropdown">
+          <div class="flex flex-wrap items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg shadow-sm focus-within:ring-cyan-600 focus-within:border-cyan-600">
+            <span *ngFor="let skill of selectedSkills; let i = index"
+                  class="bg-cyan-600 text-white px-2 py-0.5 rounded text-sm flex items-center">
+              {{ skill }}
+              <button type="button" (click)="removeSkill(i)" class="ml-1 text-white hover:text-gray-100 focus:outline-none">
+                &times;
+              </button>
+            </span>
+            <input type="text" id="skills" formControlName="skills" (input)="filterSkills()"
+                   (keydown.enter)="addSkill($event)" (focus)="toggleSkillsDropdown()"
+                   class="flex-1 bg-transparent outline-none text-sm p-1" placeholder="React, Node.js, MongoDB, Express.js">
+          </div>
+          <!-- Skills Dropdown -->
+          <ul *ngIf="isSkillsDropdownVisible && filteredSkills.length"
+              class="absolute z-10 mt-1 w-full max-h-32 overflow-y-auto bg-white border border-gray-300 rounded shadow-lg"
+              style="max-height: 200px; bottom: 0;">
+            <li *ngFor="let option of filteredSkills" (click)="selectSkill(option)"
+                class="px-2 py-1 hover:bg-cyan-100 cursor-pointer">
+              {{ option }}
+            </li>
+          </ul>
+        </div>
+      </div>
+
 
 
     </form>
