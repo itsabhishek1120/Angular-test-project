@@ -3,14 +3,14 @@
     <h3 class="text-xl font-semibold">
       Edit Profile
     </h3>
-    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" aria-label="Close">
+    <button routerLink="/profile" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" aria-label="Close">
       <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
       </svg>
     </button>
   </div>
 
-  <div class="p-6 space-y-6">
+  <div class="p-6 space-y-6 bg-gray-100">
     <form [formGroup]="editProfileForm" (ngSubmit)="submitProfile()" class="space-y-6">
 
       <!-- Profile Photo Section -->
@@ -48,8 +48,6 @@
 
         </div>
       </div>
-
-
 
       <!-- Professional Information Section -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pb-8 border-b">
@@ -98,7 +96,7 @@
 
       <!-- Education Details Section -->
       <div class="mt-8 pb-8 border-b">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Education Details</h2>
+        <h2 class="text-xl font-semibold text-green-600 mb-6 underline">Education Details</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label for="highestQualification" class="text-sm font-medium text-gray-900 block mb-2">Highest Qualification</label>
@@ -150,13 +148,13 @@
 
       <!-- Skills Section -->
       <div class="mt-8 pb-8 border-b">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Skills</h2>
+        <h2 class="text-xl font-semibold text-green-600 mb-6 underline">Skills</h2>
         <label for="skills" class="text-sm font-medium text-gray-900 block mb-2">Key Skills</label>
         <div class="relative dropdown" id="skills-dropdown">
           <div
             class="flex flex-wrap items-center gap-1 px-2 py-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg shadow-sm focus-within:ring-cyan-600 focus-within:border-cyan-600">
             <span *ngFor="let skill of selectedSkills; let i = index"
-              class="bg-cyan-600 text-white px-2 py-0.5 rounded text-sm flex items-center">
+              class="bg-purple-600 text-white px-2 py-0.5 rounded text-sm flex items-center">
               {{ skill }}
               <button type="button" (click)="removeSkill(i)" class="ml-1 text-white hover:text-gray-100 focus:outline-none">
                 &times;
@@ -177,10 +175,9 @@
       </div>
 
       <!-- Portfolio & Links Section -->
-      <div class="mt-8">
-        <h2 class="text-xl font-semibold text-gray-900 mb-4">Portfolio & Links</h2>
+      <div class="mt-8 pb-8 border-b">
+        <h2 class="text-xl font-semibold text-green-600 mb-6 underline">Portfolio & Links</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
           <div>
             <label for="portfolio" class="text-sm font-medium text-gray-900 block mb-2">Portfolio Website/Link</label>
             <input
@@ -191,7 +188,6 @@
               placeholder="https://your-portfolio.com"
             />
           </div>
-
           <div>
             <label for="linkedin" class="text-sm font-medium text-gray-900 block mb-2">LinkedIn Profile</label>
             <input
@@ -202,7 +198,6 @@
               placeholder="https://www.linkedin.com/in/your-profile/"
             />
           </div>
-
           <div>
             <label for="github" class="text-sm font-medium text-gray-900 block mb-2">GitHub/StackOverflow Profile</label>
             <input
@@ -213,7 +208,6 @@
               placeholder="https://github.com/your-profile"
             />
           </div>
-
           <div>
             <label for="otherProfile" class="text-sm font-medium text-gray-900 block mb-2">Other Profile</label>
             <input
@@ -224,10 +218,12 @@
               placeholder="https://www.leetcode.com/in/example-profile/"
             />
           </div>
-
         </div>
       </div>
 
+      <div class="rounded-b flex justify-end">
+        <button type="submit" class="text-white bg-cyan-600 mt-2 hover:bg-cyan-700 focus:ring-4 focus:ring-cyan-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Update Profile</button>
+      </div>
 
     </form>
   </div>
