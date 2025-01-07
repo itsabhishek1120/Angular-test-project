@@ -102,7 +102,7 @@ export class EditProfileComponent implements OnInit {
       currentCompany: 'TechCorp',
       noticePeriod: 30,
       profilePicture: '', // Replace with actual profile picture URL if available
-      highestQualification: '',
+      highestQualification: 'bachelor',
       fieldOfStudy: 'Computer Science',
       instituteName: 'Tech University',
       graduationYear: 2020,
