@@ -68,6 +68,11 @@ export class GlobalServices {
       console.error('GET Request Error:', error);
       if(error?.response?.data?.message) {
         let errMssg = error?.response?.data?.message;
+        if(error?.response?.status == 401){
+          this.failAlert('Logging Out!! Session Expired');
+          this.logout();
+          return;
+        }
         this.hideLoader();
         this.failAlert(errMssg);
       }else {
@@ -91,6 +96,11 @@ export class GlobalServices {
       console.error('POST Request Error:', error);
       if(error?.response?.data?.message) {
         let errMssg = error?.response?.data?.message;
+        if(error?.response?.status == 401){
+          this.failAlert('Logging Out!! Session Expired');
+          this.logout();
+          return;
+        }
         this.hideLoader();
         this.failAlert(errMssg);
       }else {
@@ -116,7 +126,7 @@ export class GlobalServices {
         this.failAlert(resp?.message);
         return;
       } else {
-        this.successAlert("User Logged Out");
+        // this.successAlert("User Logged Out");
       }
     }).catch((error) => {
       console.error('API Error:', error);

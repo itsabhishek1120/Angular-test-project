@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GlobalServices } from './../../global-services';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-profile',
@@ -12,7 +13,7 @@ export class EditProfileComponent implements OnInit {
   editProfileForm: FormGroup;
   profilePictureUrl: string | null = null;  // Default set to null for no image initially
 
-  constructor(private fb: FormBuilder, public global: GlobalServices) {
+  constructor(private fb: FormBuilder, public global: GlobalServices, private router: Router) {
     this.editProfileForm = this.fb.group({
       currentJobTitle: [''],
       experience: [''],
@@ -31,7 +32,23 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadProfileData();
+    console.log(">>>>>>>>>>...",this.global.loginDetails);
+    const savedLoginDetails = localStorage.getItem('loginDetails');
+    // this.loadProfileData();
+
+    if (savedLoginDetails) {
+      const loginDetails = JSON.parse(savedLoginDetails);
+      this.global.get('/get-user-profile',{email : loginDetails?.userEmail}).then(resp => {
+        console.log("get-user-profile resp:",resp);
+        if (resp?.success) {
+          this.loadProfileData(resp?.data);
+        } else {
+        }
+      }).catch(() => {
+        console.log("Error calling get-user-profile Api");
+
+      });
+    }
     console.log("this.editProfileForm..",this.editProfileForm);
 
   }
@@ -94,24 +111,24 @@ export class EditProfileComponent implements OnInit {
     this.isSkillsDropdownVisible = this.filteredSkills.length > 0;
   }
 
-  loadProfileData(): void {
+  loadProfileData(mockResponse: { currentJobTitle: any; experience: any; currentCompany: any; noticePeriod: any; highestQualification: any; fieldOfStudy: any; instituteName: any; graduationYear: any; portfolio: any; linkedin: any; github: any; otherProfile: any; skills: string[]; }): void {
     // Custom response for now, replace with API call later
-    const mockResponse = {
-      currentJobTitle: 'Software Developer',
-      experience: 3,
-      currentCompany: 'TechCorp',
-      noticePeriod: 30,
-      profilePicture: '', // Replace with actual profile picture URL if available
-      highestQualification: 'bachelor',
-      fieldOfStudy: 'Computer Science',
-      instituteName: 'Tech University',
-      graduationYear: 2020,
-      skills: ['Node.js', 'Angular', 'React'],
-      portfolio: 'https://your-portfolio-example.com',
-      linkedin: 'https://www.linkedin.com/in/example-profile/',
-      github: 'https://github.com/example-profile',
-      otherProfile: 'https://www.leetcode.com/in/example-profile/',
-    };
+    // const mockResponse = {
+    //   currentJobTitle: 'Software Developer',
+    //   experience: 3,
+    //   currentCompany: 'TechCorp',
+    //   noticePeriod: 30,
+    //   profilePicture: '', // Replace with actual profile picture URL if available
+    //   highestQualification: 'bachelor',
+    //   fieldOfStudy: 'Computer Science',
+    //   instituteName: 'Tech University',
+    //   graduationYear: 2020,
+    //   skills: ['Node.js', 'Angular', 'React'],
+    //   portfolio: 'https://your-portfolio-example.com',
+    //   linkedin: 'https://www.linkedin.com/in/example-profile/',
+    //   github: 'https://github.com/example-profile',
+    //   otherProfile: 'https://www.leetcode.com/in/example-profile/',
+    // };
 
     // Patch form values
     this.editProfileForm.patchValue({
@@ -163,8 +180,33 @@ export class EditProfileComponent implements OnInit {
   }
 
   submitProfile(): void {
-    console.log('Form submitted:', this.editProfileForm.value);
-    console.log('Profile picture:', this.profilePictureUrl);
+    if (this.editProfileForm.invalid || this.global.loginDetails.userEmail == '') {
+      console.log('Invalid Form :', this.editProfileForm.value);
+      return;
+    }
+    console.log('Form :', this.editProfileForm.value);
+    // console.log('Profile picture:', this.profilePictureUrl);
+    let formbody = this.editProfileForm.value;
+    formbody.email = this.global.loginDetails.userEmail;
+    formbody.skills = this.selectedSkills;
+    formbody.profilePicture = ''; //this.profilePictureUrl
+    console.log("this.profilePictureUrl",this.profilePictureUrl);
+    console.log("formbody::",formbody);
+
+    this.global.post('/edit-user-profile', formbody).then((resp: any) => {
+      console.log('Edit user profile Response:', resp);
+      if (!resp?.success) {
+        console.log('Error:', resp.message);
+        this.global.failAlert(resp.message);
+        return;
+      } else {
+        this.global.successAlert("User Profile Updated Successfully");
+        this.router.navigate(['/profile']);
+      }
+    }).catch((error) => {
+      console.error('API Error:', error);
+      this.global.failAlert("Error Posting Job");
+    });
   }
 
 }
