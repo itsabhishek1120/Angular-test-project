@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import axios, { AxiosError } from 'axios';
+import { environment } from "../environments/environment";
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class GlobalServices {
   };
   public menuOpen = false;
   public isLoading = false;
-  public API_URL = 'http://localhost:5000/api';
+  public API_URL = environment.apiUrl+'/api';
 
   public apiClient = axios.create({
     baseURL: this.API_URL,
