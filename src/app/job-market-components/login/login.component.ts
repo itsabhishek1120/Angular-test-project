@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit {
           this.global.successAlert("LogIn Successful");
           this.global.loginDetails.isLoggedIn = true;
           this.global.loginDetails.userEmail = body.email;
+          localStorage.setItem('token', resp?.token);
           localStorage.setItem('loginDetails', JSON.stringify(this.global.loginDetails));
           this.router.navigate(['/dashboard']);
         }

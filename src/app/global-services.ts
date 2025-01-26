@@ -62,7 +62,12 @@ export class GlobalServices {
     this.showLoader();
     console.log("Params :",params);
     try {
-      const response = await this.apiClient.get(endpoint, { headers, params, withCredentials: true });
+      const token = localStorage.getItem('token');
+      headers = {
+        ...headers,
+        Authorization: `Bearer ${token}`,
+      };
+      const response = await this.apiClient.get(endpoint, { headers, params, withCredentials: false });
       this.hideLoader();
       return response.data;
     } catch (error: any) {
@@ -86,9 +91,14 @@ export class GlobalServices {
   post = async (endpoint: any, body: any, headers = {}) => {
     this.showLoader();
     try {
+      const token = localStorage.getItem('token');
+      headers = {
+        ...headers,
+        Authorization: `Bearer ${token}`,
+      };
       const response = await this.apiClient.post(endpoint, body, {
         headers,
-        withCredentials: true, // Include cookies in the request
+        withCredentials: false, // Include cookies in the request
       });
       console.log("response>>", response.data);
       this.hideLoader();
@@ -118,6 +128,7 @@ export class GlobalServices {
     this.loginDetails.isLoggedIn = false;
     this.loginDetails.isEmployer = false;
     this.loginDetails.userEmail = '';
+    localStorage.removeItem('token');
     localStorage.removeItem('loginDetails');
     this.router.navigate(['/dashboard']);
 
