@@ -11,15 +11,20 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  showPassword = false;
 
   constructor(public global: GlobalServices, private fb: FormBuilder,private router: Router) {
     // Initialize the reactive form
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      remember: [false] // Default value for checkbox
+      showPassword: [false] // Default value for checkbox
     });
    }
+
+   togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
    onSubmit(): void {
     this.submitted = true;

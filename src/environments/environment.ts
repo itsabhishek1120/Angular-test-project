@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://backend-rho-steel.vercel.app'
+  apiUrl: 'https://backend-rho-steel.vercel.app',
+  // apiUrl: 'http://localhost:5000'
 };
 
 /*
